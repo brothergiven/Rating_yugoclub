@@ -14,6 +14,7 @@ public class Frame_Search extends JFrame{
 	JPanel topPnl;
 	JButton confirm;
 	JTable infoTbl;
+	String[] columnName = {"등수", "이름", "학과", "점수" };
 	String[][] info = new String[0][4];
 	DefaultTableModel dtm;
 	private StudentInfoManager SIM;
@@ -35,8 +36,9 @@ public class Frame_Search extends JFrame{
 		topPnl.add(sIDField, BorderLayout.CENTER);
 		topPnl.add(confirm, BorderLayout.EAST);
 		
-		String[] columnName = {"등수", "이름", "학과", "점수" };
+
 		dtm = new DefaultTableModel(info, columnName);
+		dtm.addRow(columnName);
 		infoTbl = new JTable(dtm);
 		
 		Container c = getContentPane();
@@ -50,8 +52,14 @@ public class Frame_Search extends JFrame{
 	
 	class Btn_confirm implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			int id = Integer.parseInt(sIDField.getText());
-			dtm.addRow(SIM.searchMember(id));
+			try {
+				dtm.removeRow(0);
+				int id = Integer.parseInt(sIDField.getText());
+				dtm.addRow(SIM.searchMember(id));
+			} catch(NumberFormatException n) {
+				new E2Frame();
+				dtm.addRow(columnName);
+			}
 		}
 	}
 }

@@ -13,22 +13,25 @@ public class Frame_Etc extends JFrame {
 	Container c = getContentPane();
 	JButton updateAll = new JButton("전적 업데이트");
 	JButton resetRating = new JButton("레이팅 초기화");
-	JButton miniGame = new JButton("미니게임");
+	JButton writeRecord = new JButton("전적 저장");
+	JButton writeMembers = new JButton("부원 정보 저장");
 	public Frame_Etc(StudentInfoManager refS, RecordManager refR) {
 		SIM = refS;
 		RM = refR;
 		setTitle("설정");
 		setSize(300, 200);
 		setVisible(true);
-		c.setLayout(new GridLayout(3, 1));
+		c.setLayout(new GridLayout(4, 1));
 		
 		updateAll.addActionListener(new Action_updateAll());
 		resetRating.addActionListener(new Action_reset());
-		
+		writeRecord.addActionListener(new Action_writeRecord());
+		writeMembers.addActionListener(new Action_writeMembers());
 		
 		c.add(updateAll);
 		c.add(resetRating);
-		c.add(miniGame);
+		c.add(writeRecord);
+		c.add(writeMembers);
 	}
 	
 	class Action_updateAll implements ActionListener{
@@ -42,10 +45,16 @@ public class Frame_Etc extends JFrame {
 			SIM.resetRating();
 		}
 	}
-	
-	class Action_miniGame implements ActionListener{
+
+	class Action_writeRecord implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-		//	new Frame_MiniGame();
+			RM.writeRecord();
+		}
+	}
+	
+	class Action_writeMembers implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			SIM.writeMembers();
 		}
 	}
 	
@@ -53,12 +62,11 @@ public class Frame_Etc extends JFrame {
 		SIM.resetRating(); // 1000으로 리셋
 		String bName, wName;
 		boolean matchResult;
-		Iterator<Vector<String>> it1 = RM.getRecord().iterator();
-		while(it1.hasNext()) {
-			Iterator<String> it2 = it1.next().iterator();
-			bName = it2.next();
-			wName = it2.next();
-			String result = it2.next();
+		System.out.println("RecordManager : updateByRecord()");
+		for(int i = 0; i < RM.getRecord().size(); i++) {
+			bName = RM.getRecord().get(i).get(0);
+			wName = RM.getRecord().get(i).get(1);
+			String result = RM.getRecord().get(i).get(2);
 			if(result.equals("흑 승")) matchResult = true;
 			else if(result.equals("백 승")) matchResult = false;
 			else {
@@ -67,5 +75,6 @@ public class Frame_Etc extends JFrame {
 			}
 			SIM.updateRating(bName, wName, matchResult);
 		}
+		
 	}
 }

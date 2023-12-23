@@ -96,6 +96,11 @@ class Frame_Insert extends JFrame{
     
 }
 
+
+
+
+
+
 class E1Frame extends JFrame{
 	E1Frame(){
 		setTitle("오류");
@@ -139,4 +144,3 @@ class E2Frame extends JFrame{
 		setVisible(true);
 	}
 }
-

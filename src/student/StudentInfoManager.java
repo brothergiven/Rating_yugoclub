@@ -66,7 +66,9 @@ public class StudentInfoManager{
         	SIDs.put(name, SID);
         } else {
             System.out.println("잘못된 형식의 라인: " + line);
+            return;
         }	
+        System.out.println("Read Member : "+name);
     }
 
     public void writeMembers() { // 현재 멤버 HashMap을 파일에 저장
@@ -79,6 +81,7 @@ public class StudentInfoManager{
                 bw.write(info.getName() + "," + SID + ","
                         + info.getDepartment() + "," + info.getRating());
                 bw.newLine();
+                System.out.println("Write Members : "+info.getName());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -98,7 +101,6 @@ public class StudentInfoManager{
     		}
 		});
     	ranking = new String[list.size()][4];
-    	System.out.println("List Size : "+list.size());
 		int rank = 0;
     	for(int i = 0; i< list.size(); i++) {
     		ranking[i][0] = Integer.toString(++rank);

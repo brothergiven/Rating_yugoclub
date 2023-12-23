@@ -20,6 +20,7 @@ public class Frame_Record extends JFrame{
 	public Frame_Record(StudentInfoManager refS, RecordManager refR) {
 		SIM = refS;
 		RM = refR;
+		RM.readRecord();
 		setTitle("전적 기록");
 		setSize(300, 200);
 		Vector<String> column = new Vector<String>();
