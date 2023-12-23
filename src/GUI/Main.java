@@ -17,32 +17,6 @@ public class Main{
 }
 
 
-class LoginFrame extends JFrame{
-	JPanel mainPanel;
-	JButton successBtn; // 로그인 성공 버튼
-	LoginFrame(){
-		setTitle("Login");
-		setSize(300, 200);
-		setLocation(500, 400);
-		mainPanel = new JPanel();
-		
-		Container c = getContentPane();
-		successBtn = new JButton("시작");
-		successBtn.addActionListener(new Btn_Success());
-		c.add(successBtn);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
-	}
-	
-	class Btn_Success implements ActionListener{
-		public void actionPerformed(ActionEvent e) {
-			new MainFrame();
-			setEnabled(false);
-		}
-	}
-	
-}
-
 class MainFrame extends JFrame{
 	// MainFrame에 들어갈 버튼 4개
 	private JButton btnRanking = new JButton("Ranking");
@@ -55,8 +29,8 @@ class MainFrame extends JFrame{
 	
 	MainFrame(){
 		// 생성자 호출시 파일에서 부원정보 읽어옴
-	    SIM.loadMembers();
-	    
+	    SIM.readMembers();
+	    SIM.updateRanking();
 		setTitle("Rating Project");
 		setPreferredSize(new Dimension(300, 200));
 		setLocation(500, 400);
