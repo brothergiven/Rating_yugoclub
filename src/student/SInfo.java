@@ -6,7 +6,14 @@ public class SInfo {
 	private String name;
 	private String department;
 	private int rating;
+	private int number;
 	
+	public void setNumber(int num) {
+		number = num;
+	}
+	
+	
+	public int getNumber() { return number; }
 	
 	public String getName() { return name;	}
 	
@@ -16,16 +23,14 @@ public class SInfo {
 	
 	public int getRating() { return rating; }
 	
-	public SInfo(String name, String department, int rating) {
+	public SInfo(int num, String name, String department, int rating) {
+		this.number = num;
 		this.name = name;
 		this.department = department;
 		this.rating = rating;
 	}
 	
-	public void setRating(int rating) { this.rating = rating; }
-	
-	@Override
-	public String toString() {
-		return "이름 : " + name + " 학과 : " + department + " 레이팅 : " + rating;
+	public void setRating(int rating) { 
+		this.rating = rating; 
 	}
 }
