@@ -223,48 +223,8 @@ public class StudentInfoManager{
         
     }
     
-    
-    public void updateRatingByRecord() {
-    	// 대국결과 기록파일을 바탕으로 모든 전적 업데이트
-    	resetRating();
-    	String FILE_NAME = "대국결과.txt";
-    	String filePath = desktopPath.resolve(FILE_NAME).toString();
-    	
-    	try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-    		String line;
-    		
-    		while((line = br.readLine()) != null) {
-    			parseRecord(line);
-    		}
-    	} catch(IOException e) {
-    		e.printStackTrace();
-    	}
-    }
-    
     public SInfo getSInfo(int id) {
     	return Members.get(id);
     }
     
-    public void parseRecord(String line) { // line에서 승패정보 가져와서 rating update
-    	String[] parts = line.split(",");
-    	String bName;
-    	String wName;
-    	boolean matchresult;
-    	try {
-    	if(parts.length == 3) {
-    		bName = parts[0].trim();
-    		wName = parts[1].trim();
-    		
-    		if(Integer.parseInt(parts[2].trim()) == 1) matchresult = true;
-    		else matchresult = false;
-    		updateRating(bName, wName, matchresult);
-    		
-    	}else 
-    		System.out.println("잘못된 형식의 라인 : " + line);
-    		
-    	} catch (NumberFormatException e) {
-    		return;
-    	}
-    }
-
 }

@@ -17,9 +17,9 @@ public class Frame_Record extends JFrame{
 	private DefaultTableModel model;
 	private JTable recordTable;
 	private JScrollPane recordScrlp;
-	public Frame_Record(StudentInfoManager ref) {
-		SIM = ref;
-		RM = new RecordManager(SIM);
+	public Frame_Record(StudentInfoManager refS, RecordManager refR) {
+		SIM = refS;
+		RM = refR;
 		setTitle("전적 기록");
 		setSize(300, 200);
 		Vector<String> column = new Vector<String>();
@@ -36,7 +36,5 @@ public class Frame_Record extends JFrame{
 		getContentPane().add(recordScrlp);
 		setVisible(true);
 	}
-	
-	
 }
 

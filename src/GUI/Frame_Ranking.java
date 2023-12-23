@@ -14,6 +14,7 @@ public class Frame_Ranking extends JFrame{
 	private DefaultTableModel model;
 	public Frame_Ranking(StudentInfoManager ref){
 		SIM = ref;
+		SIM.updateRanking();
 		setTitle("Ranking");
 		setSize(300, 200);
 		String[] columnName = {"등수", "이름", "학과", "점수" };

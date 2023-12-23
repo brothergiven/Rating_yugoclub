@@ -19,6 +19,7 @@ public class Frame_Search extends JFrame{
 	private StudentInfoManager SIM;
 	public Frame_Search(StudentInfoManager ref) {
 		SIM = ref;
+		SIM.updateRanking();
 		setTitle("검색");
 		setSize(300, 200);
 		topPnl = new JPanel(new BorderLayout());

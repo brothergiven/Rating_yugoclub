@@ -13,12 +13,14 @@ class Frame_Insert extends JFrame{
     private JButton whiteWinButton = new JButton("백 승");
     Container c;
     private RatingManager rm;
+    private RecordManager RM;
     private StudentInfoManager SIM;
     private boolean matchresult;
     private int whiteNumber, blackNumber;
-    public Frame_Insert(StudentInfoManager ref) {
-    	SIM = ref;
-        setTitle("대국결과기록 프로그램");
+    public Frame_Insert(StudentInfoManager refS, RecordManager refR) {
+    	SIM = refS;
+    	RM = refR;
+        setTitle("대국 결과 입력");
         setSize(300, 200);
         
         setLocation(500, 400);
@@ -52,6 +54,14 @@ class Frame_Insert extends JFrame{
  		   		bInfo.setRating((int)rm.getNewRatingA());
  		   		wInfo.setRating((int)rm.getNewRatingB());
  		   		System.out.println("전적 입력 : "+blackNumber+"-"+rm.getNewRatingA()+", "+whiteNumber+"-"+rm.getNewRatingB());
+ 		   		if(matchresult) {
+ 		   			RM.addRecord(bInfo.getName(), wInfo.getName(), "흑 승");
+ 		   		} else {
+ 		   			RM.addRecord(bInfo.getName(), wInfo.getName(), "백 승");
+ 		   		}
+ 		   		RM.writeRecord();
+ 		   		setVisible(false);
+ 		   		setEnabled(false);
  		   		// RecordManager 정보에 대국결과 저장
  		   } catch (NullPointerException e1) {
  			   new E1Frame();
@@ -64,15 +74,16 @@ class Frame_Insert extends JFrame{
     class WhiteWinButton implements ActionListener{
  	   public void actionPerformed(ActionEvent e) {
  		   try {
- 		   matchresult = false;
- 		   blackNumber = Integer.parseInt(textID1.getText());
- 		   whiteNumber = Integer.parseInt(textID2.getText());
- 		   rm = new RatingManager(blackNumber, whiteNumber, matchresult);
- 		   rm.calculateRatings();
- 		   SIM.getSInfo(blackNumber).setRating((int)rm.getNewRatingA());
- 		   SIM.getSInfo(whiteNumber).setRating((int)rm.getNewRatingB());
- 		   System.out.println("전적 입력 : "+blackNumber+"-"+rm.getNewRatingA()+", "+whiteNumber+"-"+rm.getNewRatingB());
-		   
+ 			   matchresult = false;
+ 			   blackNumber = Integer.parseInt(textID1.getText());
+ 			   whiteNumber = Integer.parseInt(textID2.getText());
+ 			   rm = new RatingManager(blackNumber, whiteNumber, matchresult);
+ 			   rm.calculateRatings();
+ 			   SIM.getSInfo(blackNumber).setRating((int)rm.getNewRatingA());
+ 			   SIM.getSInfo(whiteNumber).setRating((int)rm.getNewRatingB());
+ 			   System.out.println("전적 입력 : "+blackNumber+"-"+rm.getNewRatingA()+", "+whiteNumber+"-"+rm.getNewRatingB());
+ 			   setVisible(false);
+ 			   setEnabled(false);
  		   // RecordManager 정보에 대국결과 저장
  		   } catch (NullPointerException e1) {
  			   new E1Frame();

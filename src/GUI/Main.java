@@ -23,20 +23,20 @@ class MainFrame extends JFrame{
 	private JButton btnSearch = new JButton("검색");
 	private JButton btnRecord = new JButton("전적 기록");
 	private JButton btnInsert = new JButton("전적 입력");
-	
+	private JButton btnEtc = new JButton("설정");
 	// 모든 정보를 관리할 객체 매니저
 	StudentInfoManager SIM = new StudentInfoManager(); // 생성자 호출 후 파일에 있는 부원 정보 SIM.Members에 저장
-	
+	RecordManager RM = new RecordManager(SIM);
 	MainFrame(){
 		// 생성자 호출시 파일에서 부원정보 읽어옴
 	    SIM.readMembers();
 	    SIM.updateRanking();
 		setTitle("Rating Project");
 		setPreferredSize(new Dimension(300, 200));
-		setLocation(500, 400);
+	//	setLocation(500, 400);
 	    
 		Container c = getContentPane();
-	    c.setLayout(new GridLayout(4, 1));
+	    c.setLayout(new GridLayout(5, 1));
 	    
 
 	      
@@ -44,13 +44,13 @@ class MainFrame extends JFrame{
 	    btnSearch.addActionListener(new Btn_Search());
 	    btnRecord.addActionListener(new Btn_Record());
 	    btnInsert.addActionListener(new Btn_Insert());
+	    btnEtc.addActionListener(new Btn_Etc());
 	    
 	    c.add(btnRanking);
 	    c.add(btnSearch);
 	    c.add(btnRecord);
 	    c.add(btnInsert);
-	    
-
+	    c.add(btnEtc);
 	      
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    pack();
@@ -71,13 +71,19 @@ class MainFrame extends JFrame{
 
 	class Btn_Record implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			new Frame_Record(SIM);
+			new Frame_Record(SIM, RM);
 		}
 	}
 	
 	class Btn_Insert implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			new Frame_Insert(SIM);
+			new Frame_Insert(SIM, RM);
+		}
+	}
+	
+	class Btn_Etc implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			new Frame_Etc(SIM, RM);
 		}
 	}
 }
