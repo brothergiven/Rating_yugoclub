@@ -221,5 +221,66 @@ class Join_Membership extends JFrame{
 
 @SuppressWarnings("serial")
 class MainFrame extends JFrame{
+	// MainFrame에 들어갈 버튼 4개
+	private JButton btnRanking = new JButton("Ranking");
+	private JButton btnSearch = new JButton("검색");
+	private JButton btnRecord = new JButton("전적 기록");
+	private JButton btnInsert = new JButton("전적 입력");
 	
+	// 모든 정보를 관리할 객체 매니저
+	StudentInfoManager SIM = new StudentInfoManager(); // 생성자 호출 후 파일에 있는 부원 정보 SIM.Members에 저장
+	
+	MainFrame(){
+		// 생성자 호출시 파일에서 부원정보 읽어옴
+	    SIM.loadMembers();
+	    
+		setTitle("Rating Project");
+		setPreferredSize(new Dimension(300, 200));
+		setLocation(500, 400);
+	    
+		Container c = getContentPane();
+	    c.setLayout(new GridLayout(4, 1));
+	    
+
+	      
+	    btnRanking.addActionListener(new Btn_Ranking());
+	    btnSearch.addActionListener(new Btn_Search());
+	    btnRecord.addActionListener(new Btn_Record());
+	    btnInsert.addActionListener(new Btn_Insert());
+	    
+	    c.add(btnRanking);
+	    c.add(btnSearch);
+	    c.add(btnRecord);
+	    c.add(btnInsert);
+	    
+
+	      
+	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    pack();
+	    setVisible(true);
+	}
+	
+	class Btn_Ranking implements ActionListener {
+	   public void actionPerformed(ActionEvent e) {
+		//   new Frame_Ranking();
+	   }
+	}
+	
+	class Btn_Search implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+		//	new Frame_Search();
+		}
+	}
+
+	class Btn_Record implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+		//	new Frame_Record();
+		}
+	}
+	
+	class Btn_Insert implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+		//	new Frame_Insert();
+		}
+	}
 }
