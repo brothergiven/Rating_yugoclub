@@ -1,6 +1,7 @@
 package student;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
 import javax.swing.JFrame;
@@ -9,25 +10,24 @@ public class Record_Manager extends JFrame{
 	private StudentInfoManager SIM;
 	private Vector<Vector<String>> Records = new Vector<Vector<String>>();
 	public Record_Manager(StudentInfoManager ref) {
-		SIM = ref;
 		readRecord();
 	}
-	private static final String FILE_Record = "대국결과.txt";
-	// 현재 사용자의 홈 디렉토리를 얻어옴
+	
+	private static final String FILE_NAME = "대국결과.txt";
 	String userHome = System.getProperty("user.home");
-	// 바탕화면 디렉토리 경로 조합
 	Path desktopPath = Paths.get(userHome, "Desktop");
-	String fileRecord = desktopPath.resolve(FILE_Record).toString();
+	String filePath = desktopPath.resolve(FILE_NAME).toString();
 	
 	public void readRecord() { // 대국결과 기록 파일을 배열에 저장
-    	try (BufferedReader br = new BufferedReader(new FileReader(fileRecord))) {
-    		String line;	
-    		while((line = br.readLine()) != null) {
-    			parseRecord(line);
-    		}
-    	} catch(IOException e) {
-    		e.printStackTrace();
-    	}
+	    try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8))) {
+	        String line;
+	        while ((line = br.readLine()) != null) {
+	            parseRecord(line);
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+    	
     	Iterator<Vector<String>> it = Records.iterator();
     	while(it.hasNext()) {
     		Iterator<String> it2 = it.next().iterator();
