@@ -98,13 +98,19 @@ public class StudentInfoManager{
     		}
 		});
     	ranking = new String[list.size()][4];
+    	System.out.println("List Size : "+list.size());
 		int rank = 0;
     	for(int i = 0; i< list.size(); i++) {
-    		if(list.get(i).getRating() == 1000) continue;
-    		ranking[++rank][0] = Integer.toString(rank);
-    		ranking[rank][1] = list.get(i).getName();
-    		ranking[rank][2] = list.get(i).getDepartment();
-    		ranking[rank][3] = Integer.toString(list.get(i).getRating());
+    		ranking[i][0] = Integer.toString(++rank);
+    		System.out.println("Added Ranking : "+rank);
+    		if(list.get(i).getRating() == 1000) {
+    			ranking[i][3] = "전적기록 없음";
+    		} else {
+    			ranking[i][3] = Integer.toString(list.get(i).getRating());
+    		}
+    		ranking[i][1] = list.get(i).getName();
+    		ranking[i][2] = list.get(i).getDepartment();
+    		
     	}
     }
     
@@ -203,9 +209,7 @@ public class StudentInfoManager{
     
 
     public void registerMembers(String newUsername, String newMajor, String newID, String newPassword) { // 파일에서 멤버 목록을 가져와 HashMap에 저장
-    	
-
-        System.out.println(filePath);
+    	System.out.println(filePath);
         try {
         	FileWriter fileWriter = new FileWriter(filePath, true);
         	String newUserInfo = newUsername+ "," + newID + ","+ newMajor + "," + 1000 + "\n";
