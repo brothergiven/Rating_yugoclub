@@ -49,24 +49,24 @@ public class Frame_Record extends JFrame {
                 	 c.setBackground(Color.WHITE); // Æ¯Á¤ ¿­ÀÇ ¹è°æ»ö ¼³Á¤
                      c.setForeground(Color.BLACK);
                 }
-                // Á¶°Ç¿¡ µû¶ó ¹è°æ»ö º¯°æ
-                else if (gameResult.equals("¹é ½Â")) {
-                   // c.setBackground(Color.decode("#FFFFCC"));
-                	c.setBackground(Color.decode("#FFFFFF"));
-                    gameResult = "Èæ ½Â";
-                } else if (gameResult.equals("Èæ ½Â")) {
-                    //c.setBackground(Color.decode("#FFCC99"));
-                	c.setBackground(Color.decode("#000000"));
-                	c.setForeground(Color.WHITE);
-                    gameResult = "¹é ½Â";
-                } else if (gameResult.equals("¹«½ÂºÎ")) {
-                    //c.setBackground(Color.decode("#FFFF99"));
-                	c.setBackground(Color.decode("#888888"));
-                    gameResult = "¹«½ÂºÎ";
-                } else {
-                    c.setBackground(table.getBackground());
+                else if (column == 2) {
+                	  // Á¶°Ç¿¡ µû¶ó ¹è°æ»ö º¯°æ
+                    if (gameResult.equals("¹é ½Â")) {
+                       // c.setBackground(Color.decode("#FFFFCC"));
+                    	c.setBackground(Color.decode("#FFFFFF"));
+                        gameResult = "Èæ ½Â";
+                    } else if (gameResult.equals("Èæ ½Â")) {
+                        //c.setBackground(Color.decode("#FFCC99"));
+                    	c.setBackground(Color.decode("#000000"));
+                    	c.setForeground(Color.WHITE);
+                        gameResult = "¹é ½Â";
+                    } else if (gameResult.equals("¹«½ÂºÎ")) {
+                        //c.setBackground(Color.decode("#FFFF99"));
+                    	c.setBackground(Color.decode("#888888"));
+                        gameResult = "¹«½ÂºÎ";
+                    }
                 }
-
+                
                 return c;
             }
         };

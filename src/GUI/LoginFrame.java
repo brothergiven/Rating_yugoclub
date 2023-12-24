@@ -81,15 +81,20 @@ public class LoginFrame extends JFrame{
         	String newID = userIDField.getText();
         	String newPassword = new String(passwordField.getPassword());
 			StudentInfoManager SIM = new StudentInfoManager();
-        	SIM.findMembers(newID, newPassword);
-			new MainFrame();
-			setVisible(false);
+        	
+			if (SIM.findMembers(newID, newPassword)) {
+				new MainFrame();
+				new administrate_Console();
+				}
+			else {JOptionPane.showMessageDialog(null, "로그인 실패", "로그인 오류", JOptionPane.ERROR_MESSAGE);}
+			
 		}
 	}
 	
 	class Join_Memebership implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			new Join_Membership();
+			
 			setVisible(false);
 		}
 	}
