@@ -20,6 +20,8 @@ public class Frame_Etc extends JFrame {
 		RM = refR;
 		setTitle("설정");
 		setSize(300, 200);
+		setLocation(500, 400);
+		
 		setVisible(true);
 		c.setLayout(new GridLayout(4, 1));
 		

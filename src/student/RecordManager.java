@@ -21,6 +21,8 @@ public class RecordManager extends JFrame{
 	Path desktopPath = Paths.get(userHome, "Desktop");
 	String fileRecord = desktopPath.resolve(FILE_Record).toString();
 	
+
+	
 	public void readRecord() { // 대국결과 기록 파일을 배열에 저장
 		Records = new Vector<Vector<String>>();
     	try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileRecord), StandardCharsets.UTF_8))) {
@@ -35,29 +37,33 @@ public class RecordManager extends JFrame{
 	}
 	    
 	public void parseRecord(String line) { // line에서 승패정보 가져와서 rating update
-    	String[] parts = line.split(",");
-    	String bName;
-    	String wName;
-    	String result;
-    	try {
-    		if(parts.length == 3) {
-	    		bName = parts[0].trim();
-	    		wName = parts[1].trim();
-	    		if(parts[2].trim().equals("1")) result = "흑 승";
-	    		else if(parts[2].trim().equals("0")) result = "백 승";
-	    		else if(parts[2].trim().equals("흑 승")) result = parts[2].trim();
-	    		else if(parts[2].trim().equals("백 승")) result = parts[2].trim();
-	    		else result = "무승부";
-	    		System.out.println("Read Record : "+bName+wName+result);
-	    		addRecord(bName, wName, result);
-    		} else 
-	    		System.out.println("잘못된 형식의 라인 : " + line);
-	    		
-    	} catch (NumberFormatException e) {
-    		System.out.println("parseRecord failed : " + line);
-    		return;
-    	}
-    }
+	    String[] parts = line.trim().split(",");
+	    if(parts.length == 3) {
+	        String bName = parts[0].trim();
+	        String wName = parts[1].trim();
+	        String result = getResult(parts[2].trim());
+
+	        System.out.println("Read Record : "+bName+" "+wName+" "+result);
+	        addRecord(bName, wName, result);
+	    } else {
+	        System.out.println("잘못된 형식의 라인 : " + line);
+	    }
+	}
+
+	private String getResult(String input) {
+	    switch(input) {
+	        case "1":
+	            return "흑 승";
+	        case "0":
+	            return "백 승";
+	        case "흑 승":
+	        case "백 승":
+	            return input;
+	        default:
+	            return "무승부";
+	    }
+	}
+
 	    
 	public void addRecord(String bName, String wName, String matchresult) {
 		Vector<String> lineV = new Vector<String>();
@@ -87,7 +93,5 @@ public class RecordManager extends JFrame{
 			e.printStackTrace();
         }
     }
-	
-	
 	
 }

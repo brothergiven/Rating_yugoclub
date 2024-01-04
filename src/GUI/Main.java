@@ -76,7 +76,7 @@ class MainFrame extends JFrame{
 
 	class Btn_Record implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			new Frame_Record(SIM, RM);
+			new Frame_Record(RM);
 		}
 	}
 	
@@ -88,7 +88,20 @@ class MainFrame extends JFrame{
 	
 	class Btn_Etc implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			new Frame_Etc(SIM, RM);
+	        JPasswordField passwordField = new JPasswordField();
+	        Object[] message = {"비밀번호를 입력하세요:", passwordField};
+
+	        int option = JOptionPane.showConfirmDialog(null, message, "비밀번호 입력", JOptionPane.OK_CANCEL_OPTION);
+
+	        if (option == JOptionPane.OK_OPTION) {
+	            String password = new String(passwordField.getPassword());
+
+	            if (password.equals("35789")) {
+	                new Frame_Etc(SIM, RM);
+	            } else {
+	                JOptionPane.showMessageDialog(null, "비밀번호가 틀렸습니다.", "인증 오류", JOptionPane.ERROR_MESSAGE);
+	            }
+	        }
 		}
 	}
 	
