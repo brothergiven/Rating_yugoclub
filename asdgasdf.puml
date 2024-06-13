@@ -1,0 +1,258 @@
+@startuml
+class member.RatingCalculator {
+~ {static} int kFactor
++ {static} double[] calculateRatings(double,double,boolean)
+}
+
+
+class gui.MainFrame {
+- int id
+- String name
+- JButton[] btns
+- JButton rankingBtn
+~ <<Create>> MainFrame(int,String)
+}
+
+
+class member.Login {
++ String ACTUAL_FILE
++ String CONFIRM_FILE
+- HashMap<Integer,String> passwords
++ boolean login(int,String)
+- void readLoginInfo()
+- void parseLine(String)
++ void register(int,String)
++ void requestRegister(int,String,String,String,String)
+- void writeLoginLine(int,String)
+- void writeLoginInfo()
+}
+
+
+class member.Member {
+- int id
+- double rating
+- String name
+- String department
+- String level
++ <<Create>> Member(int,String,String,String)
++ int getID()
++ String getName()
++ String getDepartment()
++ String getLevel()
++ double getRating()
++ void setName(String)
++ void setDepartment(String)
++ void setLevel(String)
++ void setRating(double)
++ String[] toOutputData()
++ String toString()
+}
+
+
+class member.MemberList {
++ HashMap<Integer,Member> members
++ HashMap<String,Integer> nametoid
+- String FILE_NAME
++ <<Create>> MemberList()
++ String[][] getRanking()
+- void readMembers()
+- Member parseMember(String)
++ void addMember(Member)
++ void writeMembers()
++ void initRating()
+}
+
+
+class gui.LoginFrame {
+~ JPanel mainPanel
+~ JButton successBtn
+~ JButton joinMembership
+~ JLabel passwordLabel
+~ JLabel userIDLabel
+- JTextField userIDField
+- JPasswordField passwordField
++ <<Create>> LoginFrame()
+}
+
+
+class gui.LoginFrame$Login_Btn {
++ void actionPerformed(ActionEvent)
+}
+
+class gui.LoginFrame$Register_Btn {
++ void actionPerformed(ActionEvent)
+}
+
+class gui.InfoFrame {
+~ Member member
+- JLabel name
+- JTextField nameField
+- JButton modify
+- JButton req
++ <<Create>> InfoFrame(int,int)
+}
+
+
+class member.Record {
+- int wID
+- int bID
+~ GregorianCalendar date
+- boolean matchResult
++ <<Create>> Record(int,int,boolean,GregorianCalendar)
++ int getwID()
++ int getbID()
++ boolean getResult()
++ GregorianCalendar getDate()
++ String[] toOutputData()
++ String toString()
+}
+
+
+class main.Main {
++ {static} RecordList recordRef
++ {static} MemberList memberRef
++ {static} Login loginRef
++ {static} void main(String[])
+}
+
+
+class gui.RegisterFrame {
+~ JPanel registerPanel
+~ JLabel newIDLabel
+~ JTextField newIDField
+~ JLabel newPasswordLabel
+~ JPasswordField newPasswordField
+~ JLabel newMajorLabel
+~ JTextField newMajorField
+~ JLabel newUsernameLabel
+~ JTextField newUsernameField
+~ JLabel newLevelLabel
+~ JTextField newLevelField
+~ JButton submitButton
+~ <<Create>> RegisterFrame()
+}
+
+
+class gui.RecConfirm {
+- JButton admit
+- JLabel wIDLabel
+- JTextField wIDField
++ <<Create>> RecConfirm(Record)
+~ {static} void setColor(Component)
+}
+
+
+class gui.AdminFrame {
+- JButton reg
+- JButton rec
++ <<Create>> AdminFrame()
+}
+
+
+class gui.InputFrame {
+- JTextField blackID
+- JTextField whiteID
+- JTextField[] dateInput
+- JButton blackWinButton
+- JButton whiteWinButton
+- JLabel black
+- JLabel white
+- String fileName
++ <<Create>> InputFrame()
+~ void inputRecord(boolean)
+}
+
+
+class gui.InputFrame$BlackWin {
++ void actionPerformed(ActionEvent)
+}
+
+class gui.InputFrame$WhiteWin {
++ void actionPerformed(ActionEvent)
+}
+
+class gui.RankingFrame {
+- JTable rnkTable
+- JScrollPane scrlP
+- DefaultTableModel model
++ <<Create>> RankingFrame()
+}
+
+
+class gui.SearchFrame {
+~ int callerID
+- JButton byName
+- JLabel nameLabel
+- JTextField nameField
++ <<Create>> SearchFrame(int)
+}
+
+
+class gui.RegConfirm {
+- JLabel name
+- JTextField nameField
+- JButton admit
++ <<Create>> RegConfirm(String[])
+}
+
+
+class gui.GameFrame {
+- String FILE_NAME
+- int callerID
+~ ArrayList<int[]> others
+~ ArrayList<int[]> callers
+- DefaultTableModel model
+- JTable rnkTable
+- JScrollPane scrlP
+- JButton confirm
++ <<Create>> GameFrame(int)
+}
+
+
+class member.RecordList {
+ - ArrayList<Record> recordList
+ - String LIST_FILE_NAME
+ - String CONFIRM_FILE_NAME
+ + <<Create>> RecordList()
+ + void inputRecords(Record)
+ + String[][] recordData()
+ ~ void readRecords()
+ - void writeLine(Record,String)
+ + {static} Record parseLine(String)
+ ~ void writeRecords()
+ + void updateRating(Record)
+ + void updateAllRating()
+ }
+
+
+class gui.RecordFrame {
+- DefaultTableModel model
+- JTable recordTable
+- JScrollPane scrlp
++ <<Create>> RecordFrame()
+}
+
+
+
+
+javax.swing.JFrame <|-- gui.MainFrame
+javax.swing.JFrame <|-- gui.LoginFrame
+gui.LoginFrame +.. gui.LoginFrame$Login_Btn
+gui.ActionListener <|.. gui.LoginFrame$Login_Btn
+gui.LoginFrame +.. gui.LoginFrame$Register_Btn
+gui.ActionListener <|.. gui.LoginFrame$Register_Btn
+javax.swing.JFrame <|-- gui.InfoFrame
+javax.swing.JFrame <|-- gui.RegisterFrame
+javax.swing.JFrame <|-- gui.RecConfirm
+javax.swing.JFrame <|-- gui.AdminFrame
+javax.swing.JFrame <|-- gui.InputFrame
+gui.InputFrame +.. gui.InputFrame$BlackWin
+gui.ActionListener <|.. gui.InputFrame$BlackWin
+gui.InputFrame +.. gui.InputFrame$WhiteWin
+gui.ActionListener <|.. gui.InputFrame$WhiteWin
+javax.swing.JFrame <|-- gui.RankingFrame
+javax.swing.JFrame <|-- gui.SearchFrame
+javax.swing.JFrame <|-- gui.RegConfirm
+javax.swing.JFrame <|-- gui.GameFrame
+javax.swing.JFrame <|-- gui.RecordFrame
+@enduml
